@@ -1,4 +1,4 @@
-# `alpine-rails`: Minimal Rails image (virtual 548 MB)
+# `alpine-rails`: Minimal Rails image (virtual 649 MB)
 
 This is a *VERY* small mri Rails Image, based on the [ruby:2.4.1-alpine](https://hub.docker.com/_/ruby/).
 
