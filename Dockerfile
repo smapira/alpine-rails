@@ -1,11 +1,19 @@
-FROM ruby:2.3
+FROM ruby:2.4.1-alpine
 
-# see update.sh for why all "apt-get install"s have to stay as one long line
-RUN apt-get update && apt-get install -y nodejs --no-install-recommends && rm -rf /var/lib/apt/lists/*
+RUN apk add --no-cache --update sqlite sqlite-dev mysql-client nginx supervisor build-base patch linux-headers mariadb-dev tzdata
+RUN cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
-# see http://guides.rubyonrails.org/command_line.html#rails-dbconsole
-RUN apt-get update && apt-get install -y mysql-client postgresql-client sqlite3 --no-install-recommends && rm -rf /var/lib/apt/lists/*
+RUN echo -e 'http://dl-cdn.alpinelinux.org/alpine/edge/main\nhttp://dl-cdn.alpinelinux.org/alpine/edge/community\nhttp://dl-cdn.alpinelinux.org/alpine/edge/testing' > /etc/apk/repositories
+RUN apk add --no-cache nodejs-current yarn
 
-ENV RAILS_VERSION 5.0.1
+ENV app_path /usr/src/app
+WORKDIR $app_path
 
-RUN gem install rails --version "$RAILS_VERSION"
+RUN echo "install: --no-document" > $HOME/.gemrc && echo "update: --no-document" >> $HOME/.gemrc
+COPY Gemfile* ./
+RUN bundle install --path vendor/bundle --jobs 4
+
+ADD . $app_path
+
+EXPOSE 3000
+ENTRYPOINT ["rails", "server"]
