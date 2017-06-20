@@ -15,4 +15,6 @@ To run:
 	$ docker run -d -p 300:3000 smapira/alpine-rails
 	$ open http://localhost:3000
 
-
+## Super Thanks
+- [docker-library/rails](https://github.com/docker-library/rails)
+- [alpine linuxベースのdocker imageに移行したはなし - VASILY DEVELOPERS BLOG](http://tech.vasily.jp/entry/docker_image_slim_in_alpinelinux)
