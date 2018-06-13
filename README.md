@@ -14,5 +14,3 @@ To run:
     $ docker build -t smapira/alpine-rails .
 	$ docker run -d -p 300:3000 smapira/alpine-rails
 	$ open http://localhost:3000
-
-

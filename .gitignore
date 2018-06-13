@@ -19,5 +19,5 @@
 /node_modules
 /yarn-error.log
 .byebug_history
-.idea/
+.idea
 vendor/*
